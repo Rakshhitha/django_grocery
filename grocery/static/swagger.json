@@ -1,0 +1,898 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Repro",
+    "description": "Repro API's",
+    "version": "1.0.0",
+    "contact": {
+      "email": "user@repro.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/ecom/api/user/send-otp": {
+      "description": "send otp",
+      "post": {
+        "tags": ["Onboard"],
+        "description": "send otp",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/send_otp_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/otp_details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecom/api/user/validate-otp": {
+      "description": "validate otp",
+      "patch": {
+        "tags": ["Onboard"],
+        "description": "validate otp",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/validate_otp"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user_auth_info"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecom/api/user/login": {
+      "description": "login using password",
+      "post": {
+        "tags": ["Onboard"],
+        "description": "login using password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login_password"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user_info"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecom/api/user/profile": {
+      "description": "User Profile",
+      "put": {
+        "tags": ["Onboard"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "User profile update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/signup_user_info"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/profile_update_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecom/api/user/social-signup": {
+      "description": "social signup",
+      "post": {
+        "tags": ["Onboard"],
+        "description": "social signup",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/social_signup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/social_signup_user_info"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecom/api/user/send-otp-email-phone": {
+      "description": "send otp to either email or phone",
+      "post": {
+        "tags": ["Onboard"],
+        "description": "send otp",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/send_otp_email_phone_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/email_sms_otp_details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecom/api/user/verify-email/{uid}/{activate_key}": {
+      "description": "verify email",
+      "get": {
+        "tags": ["Onboard"],
+        "description": "verify email",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "uid",
+            "schema": {
+              "type": "string",
+              "example": "MzM"
+            },
+            "required": true
+          },
+          {
+            "name": "activate_key",
+            "in": "path",
+            "description": "activation key",
+            "schema": {
+              "type": "string",
+              "example": "asaq2w127yeua1"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/email_verification_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecom/api/user/change-password": {
+      "description": "change password",
+      "patch": {
+        "tags": ["Onboard"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "change password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/change_password_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/change_password_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ecom/api/user/onboard-survey": {
+      "description": "onboard survey",
+      "get": {
+        "tags": ["Onboard"],
+        "description": "onboard survey",
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_onboard_survey_info"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Onboard"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "onboard survey",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/add_onboard_survey_info"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/onboard_survey_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "user_info": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "User logged in successfully"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "required": true,
+            "properties": {
+              "type_of_field": {
+                "type": "string",
+                "required": true,
+                "example": "8512442198/aravind@gmail.com"
+              },
+              "x-access-token": {
+                "type": "string",
+                "required": false,
+                "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImhpbWFiaW5kdTM5NzkiLCJ1c2VyX2lkIjoxMiwiYmluZHUiOiJiaW5kdSIsIm1vYmlsZV9udW1iZXIiOiI5MTg1MjA5MTcxODMiLCJleHAiOjE2NTM2MzM1ODJ9.2loZ5yYNGCrvDSjjogpxIOy_nPJTETH75qF20Z_1_f4"
+              }
+            }
+          }
+        }
+      },
+      "signup_user_info": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "required": true,
+            "example": "aravind@gmail.com"
+          },
+          "fullname": {
+            "type": "string",
+            "required": false,
+            "example": "aravind"
+          },
+          "date_of_birth": {
+            "type": "date",
+            "required": false,
+            "example": "1997-01-12"
+          },
+          "password": {
+            "type": "password",
+            "required": false,
+            "example": "aravind@123"
+          },
+          "mobile_number": {
+            "type": "string",
+            "required": false,
+            "example": "8512442198"
+          }
+        }
+      },
+      "social_signup_user_info": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "User logged in successfully"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "required": true,
+            "properties": {
+              "email": {
+                "type": "string",
+                "required": true,
+                "example": "aravind@gmail.com"
+              },
+              "mobile_number": {
+                "type": "string",
+                "required": false,
+                "example": "8512442198"
+              },
+              "is_new_user": {
+                "type": "boolean",
+                "example": true
+              },
+              "is_registered": {
+                "type": "boolean",
+                "example": false
+              },
+              "x-access-token": {
+                "type": "string",
+                "required": true,
+                "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImhpbWFiaW5kdTM5NzkiLCJ1c2VyX2lkIjoxMiwiYmluZHUiOiJiaW5kdSIsIm1vYmlsZV9udW1iZXIiOiI5MTg1MjA5MTcxODMiLCJleHAiOjE2NTM2MzM1ODJ9.2loZ5yYNGCrvDSjjogpxIOy_nPJTETH75qF20Z_1_f4"
+              }
+            }
+          }
+        }
+      },
+      "send_otp_request": {
+        "type": "object",
+        "properties": {
+          "mobile_number": {
+            "type": "string",
+            "example": "8512442198"
+          }
+        }
+      },
+      "send_otp_email_phone_request": {
+        "type": "object",
+        "properties": {
+          "login_id": {
+            "type": "string",
+            "example": "8512442198/aravind@gmail.com"
+          }
+        }
+      },
+      "email_sms_otp_details": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "OTP sent successfully and valid for 10 minutes"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "required": true,
+            "properties": {
+              "login_id": {
+                "type": "string",
+                "example": "8512442198/aravind@gmail.com"
+              },
+              "otp": {
+                "type": "integer",
+                "example": "1234"
+              }
+            }
+          }
+        }
+      },
+      "login_password": {
+        "type": "object",
+        "properties": {
+          "login_id": {
+            "type": "string",
+            "example": "8512442198/aravind@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "aravind@123"
+          }
+        }
+      },
+      "profile_update_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "Updated successfully"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "data":{
+            "type": "object",
+            "required": true,
+            "properties":{
+              "email": {
+                "type": "string",
+                "required": true,
+                "example": "aravind@gmail.com"
+              },
+              "fullname": {
+                "type": "string",
+                "required": false,
+                "example": "aravind"
+              },
+              "date_of_birth": {
+                "type": "date",
+                "required": false,
+                "example": "1997-01-12"
+              },
+              "mobile_number": {
+                "type": "string",
+                "required": false,
+                "example": "8512442198"
+              },
+              "link": {
+                "type": "string",
+                "required": false,
+                "example": "http://127.0.0.1:8000/ecom/api/user/verify-email/MzQ/b5keur-b58be9363b731589ec9710bde6e2376e"
+              },
+              "otp": {
+                "type": "integer",
+                "required": false,
+                "example": "1234"
+              },
+              "x-access-token": {
+                "type": "string",
+                "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImhpbWFiaW5kdTM5NzkiLCJ1c2VyX2lkIjoxMiwiYmluZHUiOiJiaW5kdSIsIm1vYmlsZV9udW1iZXIiOiI5MTg1MjA5MTcxODMiLCJleHAiOjE2NTM2MzM1ODJ9.2loZ5yYNGCrvDSjjogpxIOy_nPJTETH75qF20Z_1_f4"
+              }
+            }
+          }
+        }
+      },
+      "email_verification_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "Email verified successfully"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "required": true,
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "aravind@gmail.com"
+              },
+              "is_email_verified": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "onboard_survey_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "User interests updated successfully"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          }
+        }
+      },
+      "otp_details": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "OTP sent successfully and valid for 10 minutes"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "required": true,
+            "properties": {
+              "mobile_number": {
+                "type": "string",
+                "example": "8512442198"
+              },
+              "otp": {
+                "type": "integer",
+                "example": "1234"
+              }
+            }
+          }
+        }
+      },
+      "validate_otp": {
+        "type": "object",
+        "properties": {
+          "login_id": {
+            "type": "string",
+            "example": "8512442198/aravind@gmail.com"
+          },
+          "otp": {
+            "type": "string",
+            "example": "1234"
+          }
+        }
+      },
+      "user_auth_info": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "OTP Verified Successfully"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "required": true,
+            "properties": {
+              "type_of_field": {
+                "type": "string",
+                "example": "8512442198/aravind@gmail.com"
+              },
+              "is_new_user": {
+                "type": "boolean",
+                "example": false
+              },
+              "is_registered": {
+                "type": "boolean",
+                "example": true
+              },
+              "x-access-token": {
+                "type": "string",
+                "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImhpbWFiaW5kdTM5NzkiLCJ1c2VyX2lkIjoxMiwiYmluZHUiOiJiaW5kdSIsIm1vYmlsZV9udW1iZXIiOiI5MTg1MjA5MTcxODMiLCJleHAiOjE2NTM2MzM1ODJ9.2loZ5yYNGCrvDSjjogpxIOy_nPJTETH75qF20Z_1_f4"
+              }
+            }
+          }
+        }
+      },
+      "social_signup": {
+        "type": "object",
+        "properties": {
+          "mobile_number": {
+            "type": "string",
+            "example": "8512442198"
+          },
+          "email": {
+            "type": "string",
+            "example": "aravind@gmail.com"
+          },
+          "provider": {
+            "type": "string",
+            "example": "google"
+          },
+          "smid": {
+            "type": "string",
+            "example": "asdaq12asdahdgfdjfdsjh"
+          }
+        }
+      },
+      "change_password_request": {
+        "type": "object",
+        "properties": {
+          "password1": {
+            "type": "password",
+            "example": "aravind@177"
+          },
+          "password2": {
+            "type": "password",
+            "example": "aravind@177"
+          }
+        }
+      },
+      "change_password_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "Password reset successfully"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          }
+        }
+      },
+      "get_onboard_survey_info": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "message": {
+            "type": "string",
+            "format": "string",
+            "example": "Data fetched successfully"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "required": true,
+            "properties": {
+              "genres": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "genre_id": {
+                      "type": "string",
+                      "required": true,
+                      "example": 1
+                    },
+                    "genre_name": {
+                      "type": "string",
+                      "required": true,
+                      "example": "fiction"
+                    }
+                  }
+                }
+              },
+              "languages": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "language_id": {
+                      "type": "string",
+                      "required": true,
+                      "example": 1
+                    },
+                    "language_name": {
+                      "type": "string",
+                      "required": true,
+                      "example": "english"
+                    }
+                  }
+                }
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "author_id": {
+                      "type": "string",
+                      "required": true,
+                      "example": 1
+                    },
+                    "author_name": {
+                      "type": "string",
+                      "required": true,
+                      "example": "amy"
+                    }
+                  }
+                }
+              },
+              "books": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "book_id": {
+                      "type": "string",
+                      "required": true,
+                      "example": 1
+                    },
+                    "book_name": {
+                      "type": "string",
+                      "required": true,
+                      "example": "maths"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "add_onboard_survey_info": {
+        "type": "object",
+        "properties": {
+          "genres": {
+            "type": "string",
+            "required": true,
+            "example": ["1", "2", "3"]
+          },
+          "languages": {
+            "type": "string",
+            "required": true,
+            "example": ["1", "4", "5"]
+          },
+          "authors": {
+            "type": "string",
+            "required": true,
+            "example": ["1", "5"]
+          },
+          "books": {
+            "type": "string",
+            "required": true,
+            "example": ["1", "5", "7"]
+          },
+          "reading_goal": {
+            "type": "integer",
+            "required": false,
+            "default": 3
+          }
+        }
+      }
+    }
+  }
+}
